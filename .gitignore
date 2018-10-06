@@ -1,0 +1,9 @@
+/services/collector/node_modules/
+/services/collector/bin/
+/services/collector/coverage/
+
+/logs/*
+!/logs/.gitkeep
+
+/deployment/config/reverse-proxy/certificates/*
+!/deployment/config/reverse-proxy/certificates/.gitkeep

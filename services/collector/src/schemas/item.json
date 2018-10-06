@@ -1,0 +1,79 @@
+ {
+   "definitions": {},
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "$id": "http://example.com/root.json",
+   "type": "object",
+   "title": "The Root Schema",
+   "required": [
+     "responseNumber",
+     "originalInvoiceNumber",
+     "status",
+     "date",
+     "amount",
+     "currency"
+   ],
+   "properties": {
+     "responseNumber": {
+       "$id": "#/properties/responseNumber",
+       "type": "string",
+       "title": "The Responsenumber Schema",
+       "default": "",
+       "examples": [
+         "1264"
+       ],
+       "pattern": "^(.*)$"
+     },
+     "originalInvoiceNumber": {
+       "$id": "#/properties/originalInvoiceNumber",
+       "type": "string",
+       "title": "The Originalinvoicenumber Schema",
+       "default": "",
+       "examples": [
+         "879755"
+       ],
+       "pattern": "^(.*)$"
+     },
+     "status": {
+       "$id": "#/properties/status",
+       "type": "string",
+       "title": "The Status Schema",
+       "default": "",
+       "examples": [
+         "Rejected"
+       ],
+       "pattern": "^(.*)$"
+     },
+     "date": {
+       "$id": "#/properties/date",
+       "type": "string",
+       "title": "The Date Schema",
+       "default": "",
+       "examples": [
+         "2016-10-14"
+       ],
+       "pattern": "^(.*)$"
+     },
+     "amount": {
+       "$id": "#/properties/amount",
+       "type": "string",
+       "title": "The Amount Schema",
+       "default": "",
+       "examples": [
+         "2481.86"
+       ],
+       "pattern": "^(.*)$"
+     },
+     "currency": {
+       "$id": "#/properties/currency",
+       "type": "string",
+       "title": "The Currency Schema",
+       "default": "",
+       "examples": [
+         "USD"
+       ],
+       "pattern": "^(.*)$"
+     }
+   }
+ }
+
+

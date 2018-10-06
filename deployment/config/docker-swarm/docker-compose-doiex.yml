@@ -1,0 +1,89 @@
+version: "3.7"
+services:
+
+  database:
+    image: doiex/database:${DATABASE_DOCKER_IMAGE_TAG}
+    depends_on:
+      - log_collector
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: doiex
+      SCMS_DB_PASSWORD: ${NODEJS_DB_PASSWORD}
+    volumes:
+      - type: volume
+        source: postgresdata
+        target: /var/lib/postgresql/data
+    networks:
+      - doiex_database
+    logging:
+      driver: "fluentd"
+      options:
+        tag: database
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+        max_attempts: 3
+      update_config:
+        parallelism: 1
+        delay: 5s
+        order: start-first
+        failure_action: rollback
+      resources:
+        limits:
+          memory: 400M
+        reservations:
+          memory: 100M
+
+  collector:
+    image: doiex/collector:${COLLECTOR_DOCKER_IMAGE_TAG}
+    depends_on:
+      - log_collector
+      - database
+    environment:
+      HOST_NAME: ${HOST_NAME}
+      SERVICE_NAME: "Doiex Collector Service"
+      DOIEX_DB_HOST: doiex_database
+      DOIEX_DB_PORT: 5432
+      DOIEX_DB_NAME: doiex
+      DOIEX_DB_USER: doiex_persister_app
+      DOIEX_DB_PASSWORD: ${DOIEX_DB_PASSWORD}
+    networks:
+      - reverse_proxy
+      - doiex_services
+    logging:
+      driver: "fluentd"
+      options:
+        tag: collector
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+        max_attempts: 3
+      update_config:
+        parallelism: 1
+        delay: 5s
+        order: start-first
+        failure_action: rollback
+      labels:
+        - "traefik.enable=true"
+        - "traefik.backend=collector"
+        - "traefik.docker.network=reverse_proxy"
+        - "traefik.port=3000"
+        - "traefik.backend.loadbalancer.swarm=true"
+        - "traefik.frontend.entryPoints=http,https"
+        - "traefik.frontend.rule=Host:${HOST_NAME}; PathPrefix:/collector; PathPrefixStrip:/collector"
+
+volumes:
+  postgresdata:
+
+networks:
+  doiex_services:
+    external: true
+    name: doiex_services
+  doiex_database:
+    external: true
+    name: doiex_database
+  reverse_proxy:
+    external: true
+    name: reverse_proxy

@@ -1,0 +1,8 @@
+#!/bin/bash
+psql -U postgres << END_OF_SCRIPT
+
+CREATE ROLE doiex_persister_app WITH LOGIN PASSWORD '$DOIEX_DB_PASSWORD';
+
+GRANT CONNECT, CREATE ON DATABASE $POSTGRES_DB TO doiex_persister_app;
+
+END_OF_SCRIPT
