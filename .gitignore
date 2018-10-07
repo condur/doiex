@@ -2,6 +2,10 @@
 /services/collector/bin/
 /services/collector/coverage/
 
+/services/parser/node_modules/
+/services/parser/bin/
+/services/parser/coverage/
+
 /logs/*
 !/logs/.gitkeep
 

@@ -1,10 +1,10 @@
 {
   "name": "doiex-collector",
   "version": "0.0.1",
-  "description": "Doiex Collector Service",
+  "description": "Doiex Parser Service",
   "author": "Dima Condur",
   "license": "UNLICENSED",
-  "main": "./bin/collector.server.js",
+  "main": "./bin/parser.server.js",
   "scripts": {
     "compile": "./node_modules/webpack/bin/webpack.js --config webpack.config.js",
     "standard-style": "standard --fix --verbose **/**/{,**/}*.ts"
@@ -12,7 +12,6 @@
   "devDependencies": {
     "@types/body-parser": "^1.17.0",
     "@types/express": "^4.16.0",
-    "@types/helmet": "0.0.37",
     "eslint-plugin-typescript": "^0.12.0",
     "standard": "^11.0.1",
     "ts-loader": "^4.2.0",
@@ -24,9 +23,7 @@
     "webpack-cli": "^3.1.0"
   },
   "dependencies": {
-    "ajv": "^6.5.4",
-    "express": "^4.16.3",
-    "helmet": "^3.13.0"
+    "express": "^4.16.3"
   },
   "standard": {
     "parser": "typescript-eslint-parser",

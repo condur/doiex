@@ -39,15 +39,12 @@ services:
     image: doiex/collector:${COLLECTOR_DOCKER_IMAGE_TAG}
     depends_on:
       - log_collector
-      - database
+      - parser
     environment:
       HOST_NAME: ${HOST_NAME}
       SERVICE_NAME: "Doiex Collector Service"
-      DOIEX_DB_HOST: doiex_database
-      DOIEX_DB_PORT: 5432
-      DOIEX_DB_NAME: doiex
-      DOIEX_DB_USER: doiex_persister_app
-      DOIEX_DB_PASSWORD: ${DOIEX_DB_PASSWORD}
+      SERVICE_PARSER_HOSTNAME: "doiex_parser"
+      SERVICE_PARSER_PORT: 3000
     networks:
       - reverse_proxy
       - doiex_services
@@ -73,6 +70,64 @@ services:
         - "traefik.backend.loadbalancer.swarm=true"
         - "traefik.frontend.entryPoints=http,https"
         - "traefik.frontend.rule=Host:${HOST_NAME}; PathPrefix:/collector; PathPrefixStrip:/collector"
+        - "traefik.frontend.auth.basic=api:$$apr1$$r2b2cwaf$$gqW2RZAHUFIniU9gHuv7X1"
+
+  parser:
+    image: doiex/parser:${PARSER_DOCKER_IMAGE_TAG}
+    depends_on:
+      - log_collector
+      - database
+    environment:
+      HOST_NAME: ${HOST_NAME}
+      SERVICE_NAME: "Doiex Parser Service"
+    networks:
+      - doiex_services
+      - doiex_database
+    logging:
+      driver: "fluentd"
+      options:
+        tag: parser
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+        max_attempts: 3
+      update_config:
+        parallelism: 1
+        delay: 5s
+        order: start-first
+        failure_action: rollback
+
+  # parser:
+  #   image: doiex/parser:${COLLECTOR_DOCKER_IMAGE_TAG}
+  #   depends_on:
+  #     - log_collector
+  #     - database
+  #   environment:
+  #     HOST_NAME: ${HOST_NAME}
+  #     SERVICE_NAME: "Doiex Parser Service"
+  #     DOIEX_DB_HOST: doiex_database
+  #     DOIEX_DB_PORT: 5432
+  #     DOIEX_DB_NAME: doiex
+  #     DOIEX_DB_USER: doiex_persister_app
+  #     DOIEX_DB_PASSWORD: ${DOIEX_DB_PASSWORD}
+  #   networks:
+  #     - doiex_services
+  #     - doiex_database
+  #   logging:
+  #     driver: "fluentd"
+  #     options:
+  #       tag: parser
+  #   deploy:
+  #     replicas: 1
+  #     restart_policy:
+  #       condition: on-failure
+  #       max_attempts: 3
+  #     update_config:
+  #       parallelism: 1
+  #       delay: 5s
+  #       order: start-first
+  #       failure_action: rollback
 
 volumes:
   postgresdata:

@@ -5,8 +5,8 @@ FROM node:10.11
 # -------------------------------------------------------------------------------------
 ENV NODE_ENV production
 
-ENV COLL_APP_HOME /opt/collector
-ENV COLL_USER collector
+ENV PAR_APP_HOME /opt/parser
+ENV PAR_USER parser
 
 # -------------------------------------------------------------------------------------
 # Setup OS
@@ -18,14 +18,14 @@ RUN set -x \
 # -------------------------------------------------------------------------------------
 # Create user
 # -------------------------------------------------------------------------------------
-RUN mkdir -p ${COLL_APP_HOME} \
-  && useradd -d "${COLL_APP_HOME}" -c "Collector" -s /sbin/nologin "${COLL_USER}" \
-  && chown --recursive -v ${COLL_USER}:${COLL_USER} ${COLL_APP_HOME}
+RUN mkdir -p ${PAR_APP_HOME} \
+  && useradd -d "${PAR_APP_HOME}" -c "Collector" -s /sbin/nologin "${PAR_USER}" \
+  && chown --recursive -v ${PAR_USER}:${PAR_USER} ${PAR_APP_HOME}
 
 # -------------------------------------------------------------------------------------
 # Set the working directory
 # -------------------------------------------------------------------------------------
-WORKDIR ${COLL_APP_HOME}
+WORKDIR ${PAR_APP_HOME}
 
 # -------------------------------------------------------------------------------------
 # Copy the package.json and npm-shrinkwrap.json files and install dependencies
@@ -41,7 +41,7 @@ COPY ./bin   ./
 # -------------------------------------------------------------------------------------
 # Setup application user
 # -------------------------------------------------------------------------------------
-USER ${COLL_USER}
+USER ${PAR_USER}
 
 # -------------------------------------------------------------------------------------
 # Expose application port number
@@ -51,4 +51,4 @@ EXPOSE 3000
 # -------------------------------------------------------------------------------------
 # Launch SCMS Simulator Service
 # -------------------------------------------------------------------------------------
-CMD ["node", "collector.app.js"]
+CMD ["node", "parser.app.js"]

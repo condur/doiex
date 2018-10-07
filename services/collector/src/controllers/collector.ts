@@ -1,31 +1,33 @@
-import { Request, Response, NextFunction } from 'express' // eslint-disable-line no-unused-vars
+import { Request, Response } from 'express' // eslint-disable-line no-unused-vars
 import * as Ajv from 'ajv'
-import * as schema_item from '../schemas/item.json'
-import * as schema_items from '../schemas/items.json'
+import * as schemaItem from '../schemas/item.json'
+import * as schemaItems from '../schemas/items.json'
+import * as parserService from '../model/parser'
 
-export let validate = (req: Request, res: Response, next: NextFunction) => {
-  var ajv = new Ajv({allErrors: true});
-  var validate = ajv.compile(schema_items);
-  var valid = validate(req.body);
-  if (!valid){
-      res.send(JSON.stringify(validate.errors))
-      return
+export let validate = (req: Request, res: Response) => {
+  var ajv = new Ajv({allErrors: true})
+  var validate = ajv.compile(schemaItems)
+  var valid = validate(req.body)
+  if (!valid) {
+    res.send(validate.errors)
+    return
   }
-  res.send("No errors")
+  res.send('No errors')
 }
 
-export let post = (req: Request, res: Response, next: NextFunction) => {
-  var ajv = new Ajv();
-  var validate = ajv.compile(schema_item);
-  var input_accepted = new Array();
-  var input_rejected = new Array();
+export let put = (req: Request, res: Response) => {
+  var ajv = new Ajv()
+  var validate = ajv.compile(schemaItem)
+  var inputAccepted = []
+  var inputRejected = []
   for (let item of req.body) {
-    var valid = validate(item);
-    if (valid){
-      input_accepted.push(item)
-    } else{
-      input_rejected.push(item)
+    var valid = validate(item)
+    if (valid) {
+      inputAccepted.push(item)
+    } else {
+      inputRejected.push(item)
     }
   }
-  res.send(input_rejected)
+  parserService.send(inputAccepted)
+  res.send(inputRejected)
 }

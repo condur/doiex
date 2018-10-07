@@ -14,7 +14,7 @@ module.exports = {
   entry: './src/app.ts',
   output: {
     path: path.join(__dirname, '/bin'),
-    filename: 'collector.app.js'
+    filename: 'parser.app.js'
   },
   // Enable sourcemaps for debugging webpack's output.
   devtool: 'source-map',

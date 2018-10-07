@@ -1,0 +1,28 @@
+{
+   "files": [
+      "src/app.ts"
+   ],
+   "include": [
+      "src/**/*.ts",
+      "src/**/**/*.ts"
+   ],
+   "compilerOptions": {
+      "module": "commonjs",
+      "moduleResolution": "node",
+      "noImplicitAny": false,
+      "resolveJsonModule": true,
+      "target": "es6",
+      "outDir": "bin",
+      "rootDir": "src",
+      "sourceMap": true,
+      "baseUrl": ".",
+      "removeComments": true,
+      "typeRoots": ["node_modules/@types"],
+      "paths": {
+         "*": [
+            "node_modules/@types/*",
+            "./src/types/*"
+         ]
+      }
+   }
+}
