@@ -11,7 +11,7 @@ services:
       SCMS_DB_PASSWORD: ${NODEJS_DB_PASSWORD}
     volumes:
       - type: volume
-        source: postgresdata
+        source: pgdata-1
         target: /var/lib/postgresql/data
     networks:
       - doiex_database
@@ -80,6 +80,8 @@ services:
     environment:
       HOST_NAME: ${HOST_NAME}
       SERVICE_NAME: "Doiex Parser Service"
+      SERVICE_PERSISTER_HOSTNAME: "doiex_persister"
+      SERVICE_PERSISTER_PORT: 3000
     networks:
       - doiex_services
       - doiex_database
@@ -98,39 +100,39 @@ services:
         order: start-first
         failure_action: rollback
 
-  # parser:
-  #   image: doiex/parser:${COLLECTOR_DOCKER_IMAGE_TAG}
-  #   depends_on:
-  #     - log_collector
-  #     - database
-  #   environment:
-  #     HOST_NAME: ${HOST_NAME}
-  #     SERVICE_NAME: "Doiex Parser Service"
-  #     DOIEX_DB_HOST: doiex_database
-  #     DOIEX_DB_PORT: 5432
-  #     DOIEX_DB_NAME: doiex
-  #     DOIEX_DB_USER: doiex_persister_app
-  #     DOIEX_DB_PASSWORD: ${DOIEX_DB_PASSWORD}
-  #   networks:
-  #     - doiex_services
-  #     - doiex_database
-  #   logging:
-  #     driver: "fluentd"
-  #     options:
-  #       tag: parser
-  #   deploy:
-  #     replicas: 1
-  #     restart_policy:
-  #       condition: on-failure
-  #       max_attempts: 3
-  #     update_config:
-  #       parallelism: 1
-  #       delay: 5s
-  #       order: start-first
-  #       failure_action: rollback
+  persister:
+    image: doiex/persister:${PERSISTER_DOCKER_IMAGE_TAG}
+    depends_on:
+      - log_collector
+      - database
+    environment:
+      HOST_NAME: ${HOST_NAME}
+      SERVICE_NAME: "Doiex Parser Service"
+      DOIEX_DB_HOST: doiex_database
+      DOIEX_DB_PORT: 5432
+      DOIEX_DB_NAME: doiex
+      DOIEX_DB_USER: doiex_persister_app
+      DOIEX_DB_PASSWORD: ${DOIEX_DB_PASSWORD}
+    networks:
+      - doiex_services
+      - doiex_database
+    logging:
+      driver: "fluentd"
+      options:
+        tag: persister
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+        max_attempts: 3
+      update_config:
+        parallelism: 1
+        delay: 5s
+        order: start-first
+        failure_action: rollback
 
 volumes:
-  postgresdata:
+  pgdata-1:
 
 networks:
   doiex_services:

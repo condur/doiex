@@ -28,6 +28,6 @@ export let put = (req: Request, res: Response) => {
       inputRejected.push(item)
     }
   }
-  parserService.send(inputAccepted)
   res.send(inputRejected)
+  parserService.send(inputAccepted)
 }

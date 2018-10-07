@@ -5,7 +5,7 @@
 CREATE TABLE IF NOT EXISTS original (
   document_number INT NOT NULL,
   document_type VARCHAR(50) NOT NULL,
-  date TIMESTAMP NOT NULL,
+  date VARCHAR(12) NOT NULL,
   amount FLOAT(2) NOT NULL,
   currency VARCHAR(3) NOT NULL,
   created_at TIMESTAMP NOT NULL DEFAULT now(),

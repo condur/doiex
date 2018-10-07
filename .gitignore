@@ -1,10 +1,11 @@
 /services/collector/node_modules/
 /services/collector/bin/
-/services/collector/coverage/
 
 /services/parser/node_modules/
 /services/parser/bin/
-/services/parser/coverage/
+
+/services/persister/node_modules/
+/services/persister/bin/
 
 /logs/*
 !/logs/.gitkeep

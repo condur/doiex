@@ -1,10 +1,10 @@
 {
-  "name": "doiex-parser",
+  "name": "doiex-persister",
   "version": "0.0.1",
-  "description": "Doiex Parser Service",
+  "description": "Doiex Persister Service",
   "author": "Dima Condur",
   "license": "UNLICENSED",
-  "main": "./bin/parser.server.js",
+  "main": "./bin/persister.server.js",
   "scripts": {
     "compile": "./node_modules/webpack/bin/webpack.js --config webpack.config.js",
     "standard-style": "standard --fix --verbose **/**/{,**/}*.ts"
