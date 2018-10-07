@@ -9,6 +9,8 @@ fs.readdirSync('node_modules')
     nodeModules[mod] = 'commonjs ' + mod
   })
 
+const CopyWebpackPlugin = require('copy-webpack-plugin')
+
 module.exports = {
   mode: 'production',
   entry: './src/app.ts',
@@ -44,5 +46,11 @@ module.exports = {
     __filename: false
   },
   externals: nodeModules,
-  plugins: []
+  plugins: [  
+    new CopyWebpackPlugin([{
+      from: 'src/database/sql/**/*.sql',
+      to: path.join(__dirname, '/bin')
+    }
+    ])
+  ]
 }

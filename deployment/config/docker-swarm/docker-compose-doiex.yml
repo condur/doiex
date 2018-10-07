@@ -11,7 +11,7 @@ services:
       SCMS_DB_PASSWORD: ${NODEJS_DB_PASSWORD}
     volumes:
       - type: volume
-        source: pgdata-1
+        source: pgdata-3
         target: /var/lib/postgresql/data
     networks:
       - doiex_database
@@ -132,7 +132,7 @@ services:
         failure_action: rollback
 
 volumes:
-  pgdata-1:
+  pgdata-3:
 
 networks:
   doiex_services:

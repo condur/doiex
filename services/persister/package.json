@@ -10,6 +10,7 @@
     "standard-style": "standard --fix --verbose **/**/{,**/}*.ts"
   },
   "devDependencies": {
+    "@types/bluebird": "^3.5.24",
     "@types/body-parser": "^1.17.0",
     "@types/express": "^4.16.0",
     "eslint-plugin-typescript": "^0.12.0",
@@ -20,10 +21,13 @@
     "typescript": "^3.1.1",
     "typescript-eslint-parser": "^19.0.2",
     "webpack": "^4.19.0",
-    "webpack-cli": "^3.1.0"
+    "webpack-cli": "^3.1.0",
+    "copy-webpack-plugin": "^4.5.1"
   },
   "dependencies": {
-    "express": "^4.16.3"
+    "express": "^4.16.3",
+    "bluebird": "^3.5.2",
+    "pg-promise": "^8.4.6"
   },
   "standard": {
     "parser": "typescript-eslint-parser",
