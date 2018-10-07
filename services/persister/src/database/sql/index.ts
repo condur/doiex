@@ -4,10 +4,6 @@ import * as path from 'path'
 export default {
   originals: {
     insert: sql('originals/insert.sql')
-  },
-  responses: {
-    insert: sql('responses/insert.sql'),
-    select: sql('responses/select.sql')
   }
 }
 

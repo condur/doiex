@@ -3,8 +3,8 @@ import * as db from '../database'
 
 export let post = (req: Request, res: Response, next: NextFunction) => {
   try {
-    for (let item of req.body) {
-      db.originals.insert(item.original)
+    for (let original of req.body) {
+      db.originals.insert(original)
         .catch(err => {
           if (err.code !== '23505') { // UNIQUENESS_VIOLATION 
             throw err

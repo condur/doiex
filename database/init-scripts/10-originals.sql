@@ -3,14 +3,15 @@
 
 -- Tables
 CREATE TABLE IF NOT EXISTS originals (
-  response_number VARCHAR(10) NOT NULL,
-  original_invoice_number VARCHAR(50) NOT NULL,
+  document_number VARCHAR(10) NOT NULL,
+  document_type VARCHAR(20) NOT NULL,
+  original_document_number VARCHAR(20) NOT NULL,
   status VARCHAR(20) NOT NULL,
-  date VARCHAR(20) NOT NULL,
-  amount VARCHAR(20) NOT NULL,
+  date TIMESTAMP NOT NULL,
+  amount FLOAT(2) NOT NULL,
   currency VARCHAR(3) NOT NULL,
   created_at TIMESTAMP NOT NULL DEFAULT now(),
-  PRIMARY KEY (response_number)
+  PRIMARY KEY (document_number)
 );
 
 -- Table Grants

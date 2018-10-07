@@ -1,7 +1,7 @@
 import * as promise from 'bluebird'
 import * as pgPromise from 'pg-promise'
 
-import { IExtensions, OriginalsRepository, ResponsesRepository } from './repos'
+import { IExtensions, OriginalsRepository } from './repos'
 
 // pg-promise initialization options:
 const initOptions: pgPromise.IOptions<IExtensions> = {
@@ -19,7 +19,6 @@ const initOptions: pgPromise.IOptions<IExtensions> = {
     // Do not use 'require()' here, because this event occurs for every task
     // and transaction being executed, which should be as fast as possible.
     obj.originals = new OriginalsRepository(obj, pgp)
-    obj.responses = new ResponsesRepository(obj, pgp)
   }
 };
 

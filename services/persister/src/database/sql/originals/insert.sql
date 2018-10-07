@@ -1,2 +1,2 @@
-INSERT INTO originals(response_number, original_invoice_number, status, date, amount, currency)
-VALUES(${responseNumber}, ${originalInvoiceNumber}, ${status}, ${date}, ${amount}, ${currency})
+INSERT INTO originals(document_number, document_type, original_document_number, status, date, amount, currency)
+VALUES(${documentNumber}, ${documentType}, ${originalDocumentNumber}, ${status}, ${date}, ${amount}, ${currency})
