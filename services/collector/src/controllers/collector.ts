@@ -1,16 +1,16 @@
-import { Request, Response } from 'express' // eslint-disable-line no-unused-vars
+import { Request, Response, NextFunction } from 'express' // eslint-disable-line no-unused-vars
 import * as Ajv from 'ajv'
 import * as schemaItem from '../schemas/item.json'
 import * as schemaItems from '../schemas/items.json'
 import * as parserService from '../model/parser'
 
-export let validate = (req: Request, res: Response) => {
+export let validate = (req: Request, res: Response, next : NextFunction) => {
   var ajv = new Ajv({allErrors: true})
   var validate = ajv.compile(schemaItems)
   var valid = validate(req.body)
   if (!valid) {
     res.send(validate.errors)
-    return
+    return next(validate.errors)
   }
   res.send('No errors')
 }

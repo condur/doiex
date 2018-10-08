@@ -76,7 +76,7 @@ services:
     image: doiex/parser:${PARSER_DOCKER_IMAGE_TAG}
     depends_on:
       - log_collector
-      - database
+      - persister
     environment:
       HOST_NAME: ${HOST_NAME}
       SERVICE_NAME: "Doiex Parser Service"
@@ -107,7 +107,7 @@ services:
       - database
     environment:
       HOST_NAME: ${HOST_NAME}
-      SERVICE_NAME: "Doiex Parser Service"
+      SERVICE_NAME: "Doiex Persister Service"
       DOIEX_DB_HOST: doiex_database
       DOIEX_DB_PORT: 5432
       DOIEX_DB_NAME: doiex
@@ -130,6 +130,43 @@ services:
         delay: 5s
         order: start-first
         failure_action: rollback
+
+  reporter:
+    image: doiex/reporter:${REPORTER_DOCKER_IMAGE_TAG}
+    depends_on:
+      - log_collector
+      - persister
+    environment:
+      HOST_NAME: ${HOST_NAME}
+      SERVICE_NAME: "Doiex Reporter Service"
+      SERVICE_PERSISTER_HOSTNAME: "doiex_persister"
+      SERVICE_PERSISTER_PORT: 3000
+    networks:
+      - reverse_proxy
+      - doiex_services
+    logging:
+      driver: "fluentd"
+      options:
+        tag: reporter
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+        max_attempts: 3
+      update_config:
+        parallelism: 1
+        delay: 5s
+        order: start-first
+        failure_action: rollback
+      labels:
+        - "traefik.enable=true"
+        - "traefik.backend=reporter"
+        - "traefik.docker.network=reverse_proxy"
+        - "traefik.port=3000"
+        - "traefik.backend.loadbalancer.swarm=true"
+        - "traefik.frontend.entryPoints=http,https"
+        - "traefik.frontend.rule=Host:${HOST_NAME}; PathPrefix:/reporter; PathPrefixStrip:/reporter"
+        - "traefik.frontend.auth.basic=api:$$apr1$$r2b2cwaf$$gqW2RZAHUFIniU9gHuv7X1"
 
 volumes:
   pgdata-8:

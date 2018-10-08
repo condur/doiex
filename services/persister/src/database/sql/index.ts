@@ -3,7 +3,8 @@ import * as path from 'path'
 
 export default {
   originals: {
-    insert: sql('originals/insert.sql')
+    insert: sql('originals/insert.sql'),
+    select: sql('originals/select.sql')
   }
 }
 

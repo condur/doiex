@@ -13,4 +13,10 @@ export class OriginalsRepository {
   insert (values) {
     return this.db.none(sql.originals.insert, values)
   }
+
+  select (documentNumber: string) {
+    return this.db.oneOrNone(sql.originals.select, {
+     documentNumber: documentNumber     
+    })   
+  }
 }

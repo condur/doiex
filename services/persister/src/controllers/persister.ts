@@ -17,3 +17,21 @@ export let post = (req: Request, res: Response, next: NextFunction) => {
   }   
   res.sendStatus(200)
 }
+
+export let get = (req: Request, res: Response, next: NextFunction) => {
+  // Validate documentNumber query parameter
+  if (!req.query.documentNumber) {
+    let err = 'Bad request. Missing "documentNumber" query parameter'
+    res.status(400).send(err)
+    return next(err)
+  }
+
+  db.originals.select(req.query.documentNumber)
+    .then(document => {
+      res.send(document)    
+    })
+    .catch(err => {
+      res.sendStatus(500)     
+      return next(err)
+    })
+}

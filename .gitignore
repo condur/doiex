@@ -7,6 +7,9 @@
 /services/persister/node_modules/
 /services/persister/bin/
 
+/services/reporter/node_modules/
+/services/reporter/bin/
+
 /logs/*
 !/logs/.gitkeep
 

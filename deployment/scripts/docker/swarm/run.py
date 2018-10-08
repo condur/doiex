@@ -252,7 +252,7 @@ def docker_stack_deploy(compose_file, stack):
         sys.exit()
 
 
-def run_npm_scripts_from(directory):
+def run_npm_scripts_from(directory, update_item):
     """Run NPM scripts from a specific directory
 
     Args:
@@ -264,6 +264,8 @@ def run_npm_scripts_from(directory):
     os.environ["NODE_ENV"] = "development"
 
     for script in os.listdir(directory):
+        if update_item != "all" and update_item not in script:
+            continue
         logging.info("-" * 100)
         logging.info(f"initialize {script[:-3]}")
         subprocess.call([f"{directory}/{script}"])
@@ -271,21 +273,25 @@ def run_npm_scripts_from(directory):
     os.environ["NODE_ENV"] = node_env
 
 
-def run_scripts_from(directory):
+def run_scripts_from(directory, update_item):
     """Run scripts from a specific directory
 
     Args:
         directory (str): the directory path
     """
     for script in os.listdir(directory):
+        if update_item != "all" and update_item not in script:
+            continue
         logging.info("-" * 100)
         logging.info(f"running script {script[:-3]}")
         subprocess.call([f"{directory}/{script}"])
 
 
-def docker_service_update(directory):
+def docker_service_update(directory, update_item):
     """Update a docker service"""
     for script in os.listdir(directory):
+        if update_item != "all" and update_item not in script:
+            continue
         logging.info("-" * 100)
         logging.info("update docker container")
         subprocess.call([f"{directory}/{script}"])
@@ -298,17 +304,17 @@ def main():
     validate_log_directory_exists(os.environ["LOG_COLL_PATH"])
 
     if not args.skip_init:
-        run_npm_scripts_from("../scripts/init")
+        run_npm_scripts_from("../scripts/init", args.update_item)
 
     if not args.skip_compile:
-        run_scripts_from("../scripts/compile")
+        run_scripts_from("../scripts/compile", args.update_item)
 
     if not args.skip_docker_build:
-        run_scripts_from("../scripts/docker/build")
+        run_scripts_from("../scripts/docker/build", args.update_item)
 
     if not args.skip_docker_deploy:
         if docker_swarm_is_runnig():
-            docker_service_update("../scripts/docker/update")
+            docker_service_update("../scripts/docker/update", args.update_item)
         else:
             docker_swarm_init(os.environ["DOCKER_SWARM_ADVERTISE_ADDR"])
 
