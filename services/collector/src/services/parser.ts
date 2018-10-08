@@ -1,16 +1,4 @@
-import * as http from 'http'
-
-// Http request options
-const options = {
-  hostname: process.env.SERVICE_PARSER_HOSTNAME,
-  port: process.env.SERVICE_PARSER_PORT,
-  path: '/',
-  method: 'POST',
-  headers: {
-    'Connection': 'keep-alive',
-    'Content-Type': 'application/json'
-  }
-}
+import * as request from 'request-promise'
 
 /**
  * Send data to parser service
@@ -18,9 +6,9 @@ const options = {
  */
 export let send = (data) => {
   if (process.env.NODE_ENV === 'production') {
-    sendProductionData(data)
+    return sendProductionData(data)
   } else {
-    sendDevelopmentData(data)
+    return sendDevelopmentData(data)
   }
 }
 
@@ -31,13 +19,14 @@ export let send = (data) => {
  * @param {Object} data
  */
 function sendProductionData (data) {
-  const req = http.request(options, (res) => {
-    if (res.statusCode !== 200) {
-      console.log('Failed to send date, plese check the logs of Parser Service')
-    }
-  })
-  req.write(JSON.stringify(data))
-  req.end()
+  // Http request options
+  let options = {
+    method: 'PUT',
+    uri: 'http://' + process.env.SERVICE_PARSER_HOSTNAME + ':' + process.env.SERVICE_PARSER_PORT,
+    body: data,
+    json: true // Automatically parses the JSON string in the response
+  }
+  return request(options)
 }
 
 /**
@@ -48,4 +37,5 @@ function sendProductionData (data) {
  */
 function sendDevelopmentData (data) {
   console.log('In NON-production mode the Parser Service is not called')
+  return
 }

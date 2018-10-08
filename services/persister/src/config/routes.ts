@@ -3,5 +3,5 @@ import * as persister from '../controllers/persister'
 
 export let routes = (app: Express) => {
   app.get('/', persister.get)
-  app.post('/', persister.post)
+  app.put('/', persister.put)
 }

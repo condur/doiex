@@ -1,7 +1,7 @@
 import { IDatabase, IMain } from 'pg-promise'
 import sql from '../sql'
 
-export class OriginalsRepository {
+export class DocumentsRepository {
   constructor (db: any, pgp: IMain) {
     this.db = db
     this.pgp = pgp
@@ -11,12 +11,10 @@ export class OriginalsRepository {
   private pgp: IMain // eslint-disable-line no-undef
 
   insert (values) {
-    return this.db.none(sql.originals.insert, values)
+    return this.db.none(sql.documents.insert, values)
   }
 
-  select (documentNumber: string) {
-    return this.db.oneOrNone(sql.originals.select, {
-     documentNumber: documentNumber     
-    })   
+  select () {
+    return this.db.any(sql.documents.select)
   }
 }

@@ -1,12 +1,15 @@
 -- Roles
 -- All roles creation are done in '00-create-roles' script
 
+-- Enums 
+CREATE TYPE DOCUMENT_TYPE AS ENUM ('Invoice', 'Response');
+
 -- Tables
-CREATE TABLE IF NOT EXISTS originals (
+CREATE TABLE IF NOT EXISTS documents (
+  document_type DOCUMENT_TYPE NOT NULL,
   document_number VARCHAR(10) NOT NULL,
-  document_type VARCHAR(20) NOT NULL,
-  original_document_number VARCHAR(20) NOT NULL,
-  status VARCHAR(20) NOT NULL,
+  original_document_number VARCHAR(10),
+  status VARCHAR(10),
   date TIMESTAMP NOT NULL,
   amount FLOAT(2) NOT NULL,
   currency VARCHAR(3) NOT NULL,
@@ -15,4 +18,4 @@ CREATE TABLE IF NOT EXISTS originals (
 );
 
 -- Table Grants
-GRANT SELECT, INSERT, UPDATE, DELETE ON TABLE originals TO doiex_persister_app;
+GRANT SELECT, INSERT, UPDATE, DELETE ON TABLE documents TO doiex_app;

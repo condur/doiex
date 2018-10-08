@@ -2,9 +2,9 @@ import { QueryFile, TQueryFileOptions } from 'pg-promise' // eslint-disable-line
 import * as path from 'path'
 
 export default {
-  originals: {
-    insert: sql('originals/insert.sql'),
-    select: sql('originals/select.sql')
+  documents: {
+    insert: sql('documents/insert.sql'),
+    select: sql('documents/select.sql')
   }
 }
 

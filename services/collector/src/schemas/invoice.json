@@ -1,0 +1,57 @@
+ {
+   "definitions": {},
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "$id": "https://raw.githubusercontent.com/cortexteam/code-test/master/resources/input.json",
+   "type": "object",
+   "title": "The Root Schema",
+   "required": [
+     "invoiceNumber",
+     "date",
+     "amount",
+     "currency"
+   ],
+   "properties": {
+     "invoiceNumber": {
+       "$id": "#/properties/invoiceNumber",
+       "type": "string",
+       "title": "The Invoicenumber Schema",
+       "default": "",
+       "examples": [
+         "224567"
+       ],
+       "pattern": "^(.*)$"
+     },
+     "date": {
+       "$id": "#/properties/date",
+       "type": "string",
+       "title": "The Date Schema",
+       "default": "",
+       "examples": [
+         "2016-04-17"
+       ],
+       "pattern": "^(.*)$"
+     },
+     "amount": {
+       "$id": "#/properties/amount",
+       "type": "string",
+       "title": "The Amount Schema",
+       "default": "",
+       "examples": [
+         "45.45"
+       ],
+       "pattern": "^(.*)$"
+     },
+     "currency": {
+       "$id": "#/properties/currency",
+       "type": "string",
+       "title": "The Currency Schema",
+       "default": "",
+       "examples": [
+          "CAD"
+       ],
+       "pattern": "^(.*)$"
+     }
+   }
+}
+
+

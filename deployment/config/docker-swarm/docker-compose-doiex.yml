@@ -11,7 +11,7 @@ services:
       SCMS_DB_PASSWORD: ${NODEJS_DB_PASSWORD}
     volumes:
       - type: volume
-        source: pgdata-8
+        source: pgdata-11
         target: /var/lib/postgresql/data
     networks:
       - doiex_database
@@ -111,7 +111,7 @@ services:
       DOIEX_DB_HOST: doiex_database
       DOIEX_DB_PORT: 5432
       DOIEX_DB_NAME: doiex
-      DOIEX_DB_USER: doiex_persister_app
+      DOIEX_DB_USER: doiex_app
       DOIEX_DB_PASSWORD: ${DOIEX_DB_PASSWORD}
     networks:
       - doiex_services
@@ -169,7 +169,7 @@ services:
         - "traefik.frontend.auth.basic=api:$$apr1$$r2b2cwaf$$gqW2RZAHUFIniU9gHuv7X1"
 
 volumes:
-  pgdata-8:
+  pgdata-11:
 
 networks:
   doiex_services:

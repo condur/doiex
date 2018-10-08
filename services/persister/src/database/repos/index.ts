@@ -1,11 +1,11 @@
-import { OriginalsRepository } from './originals'
+import { DocumentsRepository } from './documents'
 
 // Database Interface Extensions:
 interface IExtensions { // eslint-disable-line no-undef
-  originals: OriginalsRepository // eslint-disable-line no-undef
+  documents: DocumentsRepository // eslint-disable-line no-undef
 }
 
 export {
   IExtensions, // eslint-disable-line no-undef
-  OriginalsRepository // eslint-disable-line no-undef
+  DocumentsRepository // eslint-disable-line no-undef
 }
