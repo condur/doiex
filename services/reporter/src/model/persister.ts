@@ -1,51 +1,66 @@
-import * as http from 'http'
-
-// Http request options
-const options = {
-  hostname: process.env.SERVICE_PERSISTER_HOSTNAME,
-  port: process.env.SERVICE_PERSISTER_PORT,
-  path: '/',
-  method: 'GET',
-  headers: {
-    'Connection': 'keep-alive',
-    'Content-Type': 'application/json'
-  }
-}
+import * as request from 'request-promise'
+import * as datetime from '../helpers/datetime'
 
 /**
- * Send data to parser service
- * @param {Object} // data collected
+ * Get data from persister service
+ *
+ * @param {String} documentNumber
  */
-export let send = (data) => {
+export let get = (documentNumber) => {
   if (process.env.NODE_ENV === 'production') {
-    sendProductionData(data)
+    return getProductionData(documentNumber)
   } else {
-    sendDevelopmentData(data)
+    return getDevelopmentData(documentNumber)
   }
 }
 
 /**
- * Send data to parser service when the process.env.NODE_ENV == 'production'
+ * Get data from persister service when the process.env.NODE_ENV == 'production'
  *
  * @private
- * @param {Object} data
+ * @param {String} documentNumber
  */
-function sendProductionData (data) {
-  const req = http.request(options, (res) => {
-    if (res.statusCode !== 200) {
-      console.log('Failed to send date, plese check the logs of Persister Service')
-    }
-  })
-  req.write(JSON.stringify(data))
-  req.end()
+function getProductionData (documentNumber) {
+  // Http request options
+  var options = {
+    uri: 'http://' + process.env.SERVICE_PERSISTER_HOSTNAME + ':' + process.env.SERVICE_PERSISTER_PORT,
+    qs: {
+        documentNumber: documentNumber // -> uri + '?documentNumber=xxxxx'
+    },
+    json: true // Automatically parses the JSON string in the response
+  };
+  return request(options)
+    .then(original => {
+      let document = {
+        "original": {
+          "documentType": original.document_type,
+          "documentNumber": original.document_number,
+          "date": original.date,
+          "amount": original.amount,
+          "currency": original.currency
+        },
+        "responses": [
+          {
+            "documentType": "Response",
+            "documentNumber": original.document_number,
+            "originalDocumentNumber": original.original_document_number,
+            "status": original.status,
+            "date": datetime.getUnixTime(original.date),
+            "amount": original.amount,
+            "currency": original.currency
+          }
+        ]
+      }
+      return Promise.resolve(document)
+    })
 }
 
 /**
- * Send data to parser service when the process.env.NODE_ENV != 'production'
+ * Get data from persister service when the process.env.NODE_ENV != 'production'
  *
  * @private
- * @param {Object} data
+ * @param {String} documentNumber
  */
-function sendDevelopmentData (data) {
+function getDevelopmentData (documentNumber) {
   console.log('In NON-production mode the Persister Service is not called')
 }
