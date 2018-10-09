@@ -17,6 +17,10 @@ The four micro-services are:
   * __Persister__ application is storing each datum that the __Parser__ processed and save it into Postgresql storage.
   * __Reporter__ application returns the final data as a JSON payload by calling https://doiex.dev/reporter.  Response documents are grouped with their originating invoice (an example result is provided in [result.json](resources/result.json)). Correlation are done by matching the *originalDocumentNumber* field on a response document to the *documentNumber* field on an invoice document.  Response documents are ordered by their date, having the newest response listed first.
 
+#### Authentication
+
+The public services __Collector__ and __Reporter__ are configured to use Basic Authentication. The username is 'api' and password is 'collector'.
+
 #### Notes
 
 The application is architected as a Docker Swarm Cluster which facilitates a continuous deployment of micro-services where different versions can co-exist without breaking the data integrity? Update script for each service is presend in __deployment/scripts/docker/update__ folder.
