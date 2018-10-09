@@ -1,0 +1,142 @@
+[
+    {
+        "original": {
+            "documentType": "Invoice",
+            "documentNumber": "998755",
+            "date": 1448928000,
+            "amount": 891.57,
+            "currency": "USD"
+        },
+        "responses": [
+            {
+                "documentType": "Response",
+                "documentNumber": "114567",
+                "originalDocumentNumber": "998755",
+                "status": "Paid",
+                "date": 1449273600,
+                "amount": 891.57,
+                "currency": "USD"
+            }
+        ]
+    },
+    {
+        "original": {
+            "documentType": "Invoice",
+            "documentNumber": "224567",
+            "date": 1460851200,
+            "amount": 45.45,
+            "currency": "CAD"
+        },
+        "responses": [
+            {
+                "documentType": "Response",
+                "documentNumber": "54987",
+                "originalDocumentNumber": "224567",
+                "status": "Rejected",
+                "date": 1462060800,
+                "amount": 45.45,
+                "currency": "CAD"
+            }
+        ]
+    },
+    {
+        "original": {
+            "documentType": "Invoice",
+            "documentNumber": "789154",
+            "date": 1462060800,
+            "amount": 84.67,
+            "currency": "USD"
+        },
+        "responses": [
+            {
+                "documentType": "Response",
+                "documentNumber": "54678",
+                "originalDocumentNumber": "789154",
+                "status": "Approved",
+                "date": 1462233600,
+                "amount": 84.67,
+                "currency": "USD"
+            }
+        ]
+    },
+    {
+        "original": {
+            "documentType": "Invoice",
+            "documentNumber": "789154",
+            "date": 1462060800,
+            "amount": 84.67,
+            "currency": "USD"
+        },
+        "responses": [
+            {
+                "documentType": "Response",
+                "documentNumber": "156724",
+                "originalDocumentNumber": "789154",
+                "status": "Paid",
+                "date": 1463788800,
+                "amount": 84.67,
+                "currency": "USD"
+            }
+        ]
+    },
+    {
+        "original": {
+            "documentType": "Invoice",
+            "documentNumber": "44977",
+            "date": 1468886400,
+            "amount": 915.7,
+            "currency": "CAD"
+        },
+        "responses": [
+            {
+                "documentType": "Response",
+                "documentNumber": "56149",
+                "originalDocumentNumber": "44977",
+                "status": "Paid",
+                "date": 1469232000,
+                "amount": 915.7,
+                "currency": "CAD"
+            }
+        ]
+    },
+    {
+        "original": {
+            "documentType": "Invoice",
+            "documentNumber": "248164",
+            "date": 1471392000,
+            "amount": 647.22,
+            "currency": "CAD"
+        },
+        "responses": [
+            {
+                "documentType": "Response",
+                "documentNumber": "15647",
+                "originalDocumentNumber": "248164",
+                "status": "Pending",
+                "date": 1471651200,
+                "amount": 647.22,
+                "currency": "CAD"
+            }
+        ]
+    },
+    {
+        "original": {
+            "documentType": "Invoice",
+            "documentNumber": "879755",
+            "date": 1475193600,
+            "amount": 2481.86,
+            "currency": "USD"
+        },
+        "responses": [
+            {
+                "documentType": "Response",
+                "documentNumber": "1264",
+                "originalDocumentNumber": "879755",
+                "status": "Rejected",
+                "date": 1476403200,
+                "amount": 2481.86,
+                "currency": "USD"
+            }
+        ]
+    }
+]
