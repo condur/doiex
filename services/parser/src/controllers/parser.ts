@@ -7,23 +7,23 @@ export let put = (req: Request, res: Response, next: NextFunction) => {
   for (let original of req.body) {
     if (original.hasOwnProperty('responseNumber')) {
       documents.push({
-        "documentType": "Response",
-        "documentNumber": original.responseNumber,
-        "originalDocumentNumber": original.originalInvoiceNumber,
-        "status": original.status,
-        "date": datetime.convert(original.date),
-        "amount": Number(original.amount),
-        "currency": original.currency
+        'documentType': 'Response',
+        'documentNumber': original.responseNumber,
+        'originalDocumentNumber': original.originalInvoiceNumber,
+        'status': original.status,
+        'date': datetime.convert(original.date),
+        'amount': Number(original.amount),
+        'currency': original.currency
       })
     } else {
       documents.push({
-        "documentType": "Invoice",
-        "documentNumber": original.invoiceNumber,
-        "originalDocumentNumber": '',
-        "status": '',
-        "date": datetime.convert(original.date),
-        "amount": Number(original.amount),
-        "currency": original.currency
+        'documentType': 'Invoice',
+        'documentNumber': original.invoiceNumber,
+        'originalDocumentNumber': '',
+        'status': '',
+        'date': datetime.convert(original.date),
+        'amount': Number(original.amount),
+        'currency': original.currency
       })
     }
   }

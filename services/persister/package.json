@@ -36,7 +36,8 @@
     ],
     "globals": [],
     "ignore": [
-      "bin/**"
+      "bin/**",
+      "src/database/index.ts"
     ]
   }
 }

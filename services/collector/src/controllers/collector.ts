@@ -6,7 +6,7 @@ import * as parserService from '../services/parser'
  */
 export let put = (req: Request, res: Response, next : NextFunction) => {
   parserService.send(req.body)
-    .then(response =>{
+    .then(response => {
       res.sendStatus(200)
     })
     .catch(err => {

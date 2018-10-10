@@ -37,5 +37,4 @@ function sendProductionData (data) {
  */
 function sendDevelopmentData (data) {
   console.log('In NON-production mode the Parser Service is not called')
-  return
 }

@@ -16,8 +16,6 @@ module.exports = {
     path: path.join(__dirname, '/bin'),
     filename: 'reporter.app.js'
   },
-  // Enable sourcemaps for debugging webpack's output.
-  devtool: 'source-map',
   resolve: {
     // Add '.ts' and '.tsx' as a resolvable extension.
     extensions: ['.webpack.js', '.web.js', '.ts', '.tsx', '.js', '.json']

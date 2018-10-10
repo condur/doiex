@@ -1,5 +1,4 @@
 import * as request from 'request-promise'
-import * as datetime from '../helpers/datetime'
 
 /**
  * Get all documents from persister service
@@ -19,11 +18,11 @@ export let get = () => {
  * @private
  */
 function getProductionData () {
-    // Http request options
+  // Http request options
   var options = {
     uri: 'http://' + process.env.SERVICE_PERSISTER_HOSTNAME + ':' + process.env.SERVICE_PERSISTER_PORT,
     json: true // Automatically parses the JSON string in the response
-  };
+  }
   return request(options)
 }
 
@@ -34,5 +33,4 @@ function getProductionData () {
  */
 function getDevelopmentData () {
   console.log('In NON-production mode the Persister Service is not called')
-  return
 }
