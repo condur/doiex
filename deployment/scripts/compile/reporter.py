@@ -21,7 +21,7 @@ def script_execution_path(path):
 def npm_compile():
     logging.info("npm compile...")
     process = Popen(
-        ["npm", "run", "compile"],
+        ["npm", "run", "build:compile"],
         stdout=PIPE,
         stderr=PIPE,
         universal_newlines=True,  # noqa E501
