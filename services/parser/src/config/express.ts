@@ -1,4 +1,4 @@
-import * as expressjs from 'express' // eslint-disable-line no-unused-vars
+import expressjs from 'express' // eslint-disable-line no-unused-vars
 import * as bodyParser from 'body-parser'
 import { logger } from '../middlewares/logger'
 

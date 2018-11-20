@@ -1,25 +1,10 @@
-import * as request from 'request-promise'
+import request from 'request-promise'
 
 /**
  * Send Documents to persister service
  * @param {Object} // data collected
  */
-export let send = (documents) => {
-  if (process.env.NODE_ENV === 'production') {
-    return sendDocsProduction(documents)
-  } else {
-    return sendDocsDevelopment(documents)
-  }
-}
-
-/**
- * Send Documents to persister service
- * when the process.env.NODE_ENV == 'production'
- *
- * @private
- * @param {Object} documents
- */
-function sendDocsProduction (documents) {
+export let send = (documents) : request.RequestPromise => {
   // Http request options
   let options = {
     method: 'PUT',
@@ -28,15 +13,4 @@ function sendDocsProduction (documents) {
     json: true // Automatically parses the JSON string in the response
   }
   return request(options)
-}
-
-/**
- * Send Documents to persister service
- * when the process.env.NODE_ENV != 'production'
- *
- * @private
- * @param {Object} documents
- */
-function sendDocsDevelopment (documents) {
-  console.log('In NON-production mode the Persister Service is not called')
 }
