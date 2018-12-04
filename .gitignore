@@ -15,3 +15,5 @@
 
 /deployment/config/reverse-proxy/certificates/*
 !/deployment/config/reverse-proxy/certificates/.gitkeep
+
+.vscode

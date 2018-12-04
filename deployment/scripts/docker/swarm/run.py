@@ -266,7 +266,7 @@ def run_npm_scripts_from(directory, update_item):
     for script in os.listdir(directory):
         if update_item != "all" and update_item not in script:
             continue
-        logging.info("-" * 100)
+        logging.info("-" * 150)
         logging.info(f"initialize {script[:-3]}")
         subprocess.call([f"{directory}/{script}"])
 
@@ -282,7 +282,7 @@ def run_scripts_from(directory, update_item):
     for script in os.listdir(directory):
         if update_item != "all" and update_item not in script:
             continue
-        logging.info("-" * 100)
+        logging.info("-" * 150)
         logging.info(f"running script {script[:-3]}")
         subprocess.call([f"{directory}/{script}"])
 
@@ -292,7 +292,7 @@ def docker_service_update(directory, update_item):
     for script in os.listdir(directory):
         if update_item != "all" and update_item not in script:
             continue
-        logging.info("-" * 100)
+        logging.info("-" * 150)
         logging.info("update docker container")
         subprocess.call([f"{directory}/{script}"])
 

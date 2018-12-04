@@ -1,4 +1,4 @@
-FROM node:10.12
+FROM node:10.14
 
 # -------------------------------------------------------------------------------------
 # Default Environment Variables
@@ -19,7 +19,7 @@ RUN set -x \
 # Create user
 # -------------------------------------------------------------------------------------
 RUN mkdir -p ${PER_APP_HOME} \
-  && useradd -d "${PER_APP_HOME}" -c "Collector" -s /sbin/nologin "${PER_USER}" \
+  && useradd -d "${PER_APP_HOME}" -c "Collector" -s /usr/sbin/nologin "${PER_USER}" \
   && chown --recursive -v ${PER_USER}:${PER_USER} ${PER_APP_HOME}
 
 # -------------------------------------------------------------------------------------
